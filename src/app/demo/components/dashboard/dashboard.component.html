@@ -1,0 +1,86 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h5>Select Form</h5>
+            <p-dropdown [options]="formtype" [(ngModel)]="selectedForm" placeholder="Select a Form Type"
+                optionLabel="name" [showClear]="false" (onChange)="onChange($event)"></p-dropdown>
+        </div>
+    </div>
+
+    <div class="col-12 md:col-6" *ngIf="selectedData == 'employee'">
+        <div class="card p-fluid">
+            <form [formGroup]="EmployeeForm">
+                <h5>Employee</h5>
+                <div class="field">
+                    <label htmlFor="name1">Name</label>
+                    <input pInputText id="name1" type="text" formControlName="name" [required]="true"
+                        placeholder="Name" />
+                </div>
+                <div class="field">
+                    <label htmlFor="age1">Group</label>
+                    <p-multiSelect [options]="group" formControlName="selectedGroup" defaultLabel="Select Group"
+                        optionLabel="name" display="chip" id="age1">
+                    </p-multiSelect>
+                </div>
+                <div class="field">
+                    <label htmlFor="gender1">Gender</label>
+                    <p-dropdown [options]="gender" optionValue="name" formControlName="gender"
+                        placeholder="Select Gender" optionLabel="name" [showClear]="false" autocomplete="off"
+                        id="gender1">
+                    </p-dropdown>
+                </div>
+                <div class="field">
+                    <label htmlFor="age1">DOB</label>
+                    <p-calendar formControlName="dob" [showIcon]="true" inputId="icon" placeholder="Select DOB"
+                        id="age1">
+                    </p-calendar>
+                </div>
+            </form>
+            <div class="p-field p-col-12 p-md-5">
+                <p-button type="button" icon="pi pi-check" pTooltip="Submit" [disabled]="!EmployeeForm.valid"
+                    (click)="submitEmployee(EmployeeForm.value)">
+                </p-button>&nbsp;
+
+                <p-button pRipple type="button" icon="pi pi-times" pTooltip="Cancel" (click)="clear()">
+                </p-button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 md:col-6" *ngIf="selectedData == 'personal_details'">
+        <div class="card p-fluid">
+            <form [formGroup]="PersonalDetailsForm">
+                <h5>Personal Details</h5>
+                <div class="field">
+                    <label htmlFor="name1">Address</label>
+                    <textarea rows="5" cols="30" pInputTextarea formControlName="address"
+                        placeholder="Address"></textarea>
+                </div>
+                <div class="field">
+                    <label htmlFor="age1">Nationality</label>
+                    <div *ngFor="let i of radio" class="p-field-checkbox">
+                        <p-radioButton [value]="i" formControlName="nationality">
+                        </p-radioButton>
+                        <label [for]="i.country">{{i.country}}</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <label htmlFor="email1">Mobile Number</label>
+                    <p-inputMask mask="(99) 9999999999" formControlName="mobilNumber" placeholder="(99) 9999999999">
+                    </p-inputMask>
+                </div>
+
+            </form>
+
+            <div class="col-12 md:col-6">
+                <div class="p-field p-col-12 p-md-5">
+                    <p-button type="button" icon="pi pi-check" pTooltip="Submit" [disabled]="!PersonalDetailsForm.valid"
+                        (click)="submitEmployeePersonal(PersonalDetailsForm.value)">
+                    </p-button>&nbsp;
+                    <p-button pRipple type="button" icon="pi pi-times" pTooltip="Cancel" (click)="clear()">
+                    </p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
